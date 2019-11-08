@@ -1,0 +1,6 @@
+<resources>
+    <dimen name="screen_small_margin">15dp</dimen>
+    <dimen name="screen_big_margin">30dp</dimen>
+    <dimen name="line_height">0.7dp</dimen>
+    <dimen name="zero">0dp</dimen>
+</resources>

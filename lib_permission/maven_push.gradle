@@ -1,0 +1,88 @@
+apply plugin: 'maven'
+//apply plugin: 'signing'
+
+def isReleaseBuild() {
+    return !VERSION_NAME.toUpperCase().contains("SNAPSHOT")
+}
+
+def getRepositoryUrl() {
+    return isReleaseBuild() ? REPOSITORY_RELEASE : REPOSITORY_SNAPSHOTS
+}
+
+def getLocalProperties() {
+    Map<String, String> config = new HashMap<>()
+    Properties properties = new Properties()
+    InputStream inputStream = rootProject.file('local.properties').newDataInputStream()
+    properties.load(inputStream)
+    config.put("username", properties.getProperty("SONATYPE_USERNAME"))
+    config.put("password", properties.getProperty("SONATYPE_PASSWORD"))
+    return config
+}
+
+private configurePOM(def pom) {
+    pom.project {
+        name = PROJECT_NAME
+        description = PROJECT_DESCRIPTION
+        url = PROJECT_URL
+        //源代码控制地址，比如github地址
+//        scm {
+//            url PROJECT_URL
+//            tag VERSION_NAME
+//            connection SCM
+//            developerConnection SCM
+//        }
+        developers {
+            developer {
+                name DEVELOPER_NAME
+                email DEVELOPER_EMAIL
+            }
+        }
+        licenses {
+            license {
+                name LICENSES_NAME
+                url LICENSES_URL
+            }
+        }
+    }
+}
+
+afterEvaluate { project ->
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+//                if (isReleaseBuild()) {
+//                    beforeDeployment {
+//                        MavenDeployment deployment -> signing.signPom(deployment)
+//                    }
+//                }
+
+                pom.groupId = GROUP
+                pom.artifactId = ARTIFACT_ID
+                pom.version = VERSION_NAME
+
+                if (isReleaseBuild()) {
+                    configurePOM(pom)
+                }
+
+                repository(url: getRepositoryUrl()) {
+                    Map<String, String> config = getLocalProperties()
+                    authentication(userName: config.username, password: config.password)
+                }
+            }
+        }
+    }
+
+    if (isReleaseBuild()) {
+        signing {
+            required {
+                gradle.taskGraph.hasTask("uploadArchives")
+            }
+            sign configurations.archives
+        }
+        tasks.withType(Javadoc) {
+            options.addStringOption('Xdoclint:none', '-quiet')
+            options.addStringOption('encoding', 'UTF-8')
+            options.addStringOption('charSet', 'UTF-8')
+        }
+    }
+}

@@ -1,0 +1,77 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+android {
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    /**
+     * 解决代码报红：
+     * <a href="https://stackoverflow.com/questions/48988778/cannot-inline-bytecode-built-with-jvm-target-1-8-into-bytecode-that-is-being-bui">
+     *     Cannot inline bytecode built with JVM target 1.8 into bytecode that is being built with JVM target 1.6</a>
+     */
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+
+    dataBinding {
+        enabled true
+    }
+
+}
+
+//不知为何没起作用
+configurations {
+//    compile.exclude group:'io.reactivex.rxjava2', module: 'rxjava'
+    all{
+        resolutionStrategy{
+            eachDependency{
+                DependencyResolveDetails details ->
+                    if(details.requested.group == 'io.reactivex.rxjava2'
+                            &&details.requested.name == 'rxjava'){
+                        details.useVersion '2.2.11'
+                        details.because 'unified the version of rxJava2'
+                    }
+
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api deps.kotlin_stdlib
+    api deps.appcompat_androidx
+    api deps.androidx_core
+    api deps.androidx_constraint
+    api deps.recyclerview
+    api deps.rxjava
+    api deps.rxandroid
+    api deps.retrofit
+    api deps.converter_gson
+    api deps.retrofit_apapter
+    api deps.guava
+    api deps.autodispose
+    api deps.autodispose_android
+    api deps.lifecycle
+    api deps.bindingcollectionadapter
+    api deps.bindingcollectionadapter_recyclerview
+    api deps.rxbinding
+
+}

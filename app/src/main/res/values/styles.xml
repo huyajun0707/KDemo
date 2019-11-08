@@ -1,0 +1,48 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/color_ffffff</item>
+        <item name="colorControlNormal">@color/color_line_dcdcdc</item>
+        <item name="colorControlActivated">@color/color_fb8008</item>
+    </style>
+
+<!--    <style name="HomeTab">-->
+<!--        <item name="android:textColor">@drawable/select_button_home_text_color</item>-->
+<!--        <item name="android:layout_width">0dip</item>-->
+<!--        <item name="android:layout_height">wrap_content</item>-->
+<!--        <item name="android:gravity">center</item>-->
+<!--        <item name="android:layout_gravity">center</item>-->
+<!--        <item name="android:button">@null</item>-->
+<!--        <item name="android:textSize">11dp</item>-->
+<!--        <item name="android:drawablePadding">1dp</item>-->
+<!--        <item name="android:layout_weight">1</item>-->
+<!--    </style>-->
+
+
+<!--    <style name="BorrowMoneyPeriodsTab">-->
+<!--        <item name="android:textColor">@drawable/select_button_periods_text_color</item>-->
+<!--        <item name="android:layout_width">95dp</item>-->
+<!--        <item name="android:layout_height">40dp</item>-->
+<!--        <item name="android:gravity">center</item>-->
+<!--        <item name="android:background">@drawable/select_periods_button</item>-->
+<!--        <item name="android:textSize">15dp</item>-->
+<!--        <item name="android:button">@null</item>-->
+<!--        <item name="android:layout_weight">1</item>-->
+<!--    </style>-->
+
+<!--    <style name="WeBerTheme" parent="AppTheme">-->
+<!--        <item name="android:windowIsTranslucent">false</item>-->
+<!--    </style>-->
+
+<!--    <style name="SPlash" parent="AppTheme">-->
+<!--        <item name="android:windowBackground">@drawable/icon_first_backgroud</item>-->
+<!--        <item name="android:windowFullscreen">true</item>-->
+<!--        <item name="android:windowContentOverlay">@null</item>-->
+<!--    </style>-->
+
+</resources>

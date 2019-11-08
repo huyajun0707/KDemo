@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ProgressLoadingDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:backgroundDimAmount">0.2</item>
+    </style>
+
+
+
+</resources>

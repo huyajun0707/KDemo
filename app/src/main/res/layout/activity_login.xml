@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.kdemo.ui.viewmodel.LoginVM" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_ffffff"
+        tools:context=".ui.login.LoginActivity">
+
+        <include
+            android:id="@+id/mTitle"
+            layout="@layout/view_common_title_bar" />
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mTitle"
+            android:layout_marginLeft="@dimen/screen_big_margin"
+            android:layout_marginTop="72dp"
+            android:text="欢迎登录任意花"
+            android:textColor="@color/color_000000"
+            android:textSize="28dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.example.component.widget.SuperEditText
+            android:id="@+id/mEtPhoneNum"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginLeft="@dimen/screen_big_margin"
+            android:layout_marginTop="139dp"
+            android:layout_marginRight="@dimen/screen_big_margin"
+            android:paddingEnd="50dp"
+            android:gravity="center_vertical"
+            android:hint="请输入您的手机号码"
+            android:inputType="phone"
+            android:lineSpacingExtra="10dp"
+            android:lineSpacingMultiplier="1.2"
+            android:singleLine="true"
+            android:textColorHint="@color/color_A6A6A6"
+            android:textSize="18dp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/mBtNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="270dp"
+            android:layout_marginLeft="@dimen/screen_big_margin"
+            android:layout_marginRight="@dimen/screen_big_margin"
+            android:background="@drawable/select_common_button"
+            android:text="下一步"
+            android:textColor="@color/color_ffffff"
+            android:textSize="18dp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="35dp"
+            android:background="@drawable/icon_login_go_buy"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

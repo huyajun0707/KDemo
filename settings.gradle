@@ -1,0 +1,2 @@
+include ':app', ':baselibrary', ':component', ':lib_permission'
+rootProject.name='KDemo'
