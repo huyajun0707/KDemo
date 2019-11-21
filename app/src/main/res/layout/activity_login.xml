@@ -2,15 +2,8 @@
 
 <layout>
 
-    <data>
-
-        <variable
-            name="viewModel"
-            type="com.example.kdemo.ui.viewmodel.LoginVM" />
-
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -38,14 +31,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <com.example.component.widget.SuperEditText
+        <com.renmai.component.widget.SuperEditText
             android:id="@+id/mEtPhoneNum"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginLeft="@dimen/screen_big_margin"
             android:layout_marginTop="139dp"
             android:layout_marginRight="@dimen/screen_big_margin"
-            android:paddingEnd="50dp"
             android:gravity="center_vertical"
             android:hint="请输入您的手机号码"
             android:inputType="phone"

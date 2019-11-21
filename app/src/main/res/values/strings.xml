@@ -2,6 +2,9 @@
     <string name="app_name">任意花</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab_home">首页</string>
+    <string name="tab_borrow">借款</string>
+    <string name="tab_me">我的</string>
 
     <string name="text_view_properties" type="id" tools:ignore="ExtraTranslation">content</string>
 
@@ -11,7 +14,6 @@
     <string name="agreement_content_privacy_policy">点击同意视为您已确认《隐私政策》，同意将个人信息主动提供给任买科技或由任买科技自动采集，并在必要时与合作伙伴共享。</string>
     <string name="agreement_content_about_borrow">我已同意借款相关协议，授权生成电子签章并借款</string>
     <string name="agreement_content_entrusted_deduction">点击添加视为您同意《委托划扣授权书》</string>
-
 
 
     <string name="validation_phone_prompt">请输入您的手机号码</string>
@@ -28,5 +30,6 @@
     <string name="validation_code_prompt">请填写验证码</string>
     <string name="validation_bank_name_prompt">请选择发卡银行</string>
     <string name="validation_check_read_prompt">请勾选协议</string>
+
 
 </resources>

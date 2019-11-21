@@ -61,17 +61,17 @@ dependencies {
     api deps.androidx_core
     api deps.androidx_constraint
     api deps.recyclerview
-    api deps.rxjava
-    api deps.rxandroid
-    api deps.retrofit
-    api deps.converter_gson
-    api deps.retrofit_apapter
     api deps.guava
-    api deps.autodispose
-    api deps.autodispose_android
-    api deps.lifecycle
     api deps.bindingcollectionadapter
     api deps.bindingcollectionadapter_recyclerview
     api deps.rxbinding
+    api deps.bar_library
+    api deps.navigation_fragment
+    api deps.navigation_ui
+    api deps.glide
+    api deps.mmkv
+    api deps.multidex
+    api deps.legacy
+    api project(path: ':netlibrary')
 
 }

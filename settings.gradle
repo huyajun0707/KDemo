@@ -1,2 +1,2 @@
-include ':app', ':baselibrary', ':component', ':lib_permission'
+include ':app', ':baselibrary', ':component', ':netlibrary'//, ':lib_permission'
 rootProject.name='KDemo'
