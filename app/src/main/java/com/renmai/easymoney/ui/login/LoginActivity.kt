@@ -39,6 +39,16 @@ class LoginActivity : BaseMvpActivity<ActivityLoginBinding, LoginContract.Presen
         mBtNext.setOnClickListener(this)
     }
 
+    /**
+     * @param ctx
+     * @param originalSource
+     * @param gifDisplayTime
+     * @param hasGifDiskCacheStrategy
+     * @param placeHolderDrawable
+     * @param errorDrawable
+     * @param strategy
+     * @param baseTarget
+     */
     override fun normalOnClick(v: View?) {
         when (v?.id) {
             R.id.mBtNext -> {
@@ -51,7 +61,6 @@ class LoginActivity : BaseMvpActivity<ActivityLoginBinding, LoginContract.Presen
     override fun loginSuccess() {
         startActivity(MainActivity::class.java)
     }
-
 
 
     override fun destroyViewAndThing() {

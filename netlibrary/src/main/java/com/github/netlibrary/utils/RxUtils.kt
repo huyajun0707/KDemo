@@ -2,7 +2,8 @@ package com.github.netlibrary.utils
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import com.github.netlibrary.listener.DefaultDataCallback
+import com.github.netlibrary.listener.DataLoadingCallback
+import com.github.netlibrary.listener.DataNoLoadingCallback
 import com.github.netlibrary.listener.HttpCallBack
 import com.github.netlibrary.observer.RxObserver
 import com.github.netlibrary.retry.RetryWhenNetworkException1
@@ -84,7 +85,20 @@ fun <T> Flowable<T>.bindLifecycle(owner: LifecycleOwner): FlowableSubscribeProxy
 /**
  * 包装一层减少代码量
  */
-fun <T,D> Observable<T>.callback(owner: LifecycleOwner,callback: DefaultDataCallback<D>) {
+fun <T,D> Observable<T>.callback(owner: LifecycleOwner,callback: DataLoadingCallback<D>) {
+
+    return this.bindLifecycleWithScheduler(owner).subscribe(
+        RxObserver(
+            HttpCallBack<BaseResponse<D>, D>(callback)
+        )
+    )
+
+}
+
+/**
+ * 包装一层减少代码量
+ */
+fun <T,D> Observable<T>.callback(owner: LifecycleOwner,callback: DataNoLoadingCallback<D>) {
 
     return this.bindLifecycleWithScheduler(owner).subscribe(
         RxObserver(

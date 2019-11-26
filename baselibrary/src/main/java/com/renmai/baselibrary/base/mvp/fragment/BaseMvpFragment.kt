@@ -7,8 +7,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.OnLifecycleEvent
 import com.renmai.baselibrary.base.mvp.mvpinterface.BaseView
 import com.renmai.baselibrary.base.mvp.mvpinterface.IPresenter
+import org.jetbrains.annotations.NotNull
 
 /**
  * @author      ： HuYajun <huyajun0707@gmail.com>
@@ -67,6 +72,7 @@ abstract class BaseMvpFragment<V : ViewDataBinding, P : IPresenter> : Fragment()
         //1、加载视图
         isViewInitialized = true
         initView()
+        lifecycle()
         initListener()
         if (isInitDataInBase) {
             //2、可以在基类中加载数据，加载数据
@@ -123,7 +129,7 @@ abstract class BaseMvpFragment<V : ViewDataBinding, P : IPresenter> : Fragment()
         }
     }
 
-    /**初始化view*/
+
     abstract fun initView()
 
     /**初始化事件监听*/
@@ -172,4 +178,33 @@ abstract class BaseMvpFragment<V : ViewDataBinding, P : IPresenter> : Fragment()
     override fun showErrorMessage(msg: String) {
 
     }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        println("--->${javaClass.name}+：${hidden}")
+
+    }
+
+
+    fun lifecycle(){
+      lifecycle.addObserver(object : LifecycleObserver {
+
+          @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+          fun onResume(@NotNull owner: LifecycleOwner){
+              println("--->LifecycleObserver:${getPresenter()}：onResume")
+          }
+
+          @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+          fun onPause(@NotNull owner: LifecycleOwner){
+              println("--->LifecycleObserver:${javaClass.name}：onPause")
+          }
+
+
+      })
+
+
+    }
+
+
+
 }

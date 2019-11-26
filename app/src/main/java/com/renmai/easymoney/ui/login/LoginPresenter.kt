@@ -1,6 +1,6 @@
 package com.renmai.easymoney.ui.login
 
-import com.github.netlibrary.listener.DefaultDataCallback
+import com.github.netlibrary.listener.DataLoadingCallback
 import com.github.netlibrary.utils.callback
 import com.renmai.baselibrary.base.mvp.presenter.BasePresenter
 import com.renmai.easymoney.entity.LoginInfo
@@ -22,7 +22,7 @@ class LoginPresenter(val view: LoginContract.View) : BasePresenter<LoginContract
     override fun login(mobile: String) {
         mWeakOwner?.get()?.let {
             ApiService.instance.login(mobile)
-                .callback(it, object : DefaultDataCallback<LoginInfo>(view) {
+                .callback(it, object : DataLoadingCallback<LoginInfo>(view) {
                     override fun onLoadedData(data: LoginInfo?) {
                         view.loginSuccess()
                     }

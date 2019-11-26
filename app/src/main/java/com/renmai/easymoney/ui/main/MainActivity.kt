@@ -2,6 +2,7 @@ package com.renmai.easymoney.ui.main
 
 import android.view.MenuItem
 import android.view.View
+import androidx.fragment.app.Fragment
 import com.renmai.baselibrary.base.mvp.activity.BaseMvpActivity
 import com.renmai.easymoney.R
 import com.renmai.easymoney.databinding.ActivityMainBinding
@@ -13,6 +14,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseMvpActivity<ActivityMainBinding, MainContract.Presenter>(),
     MainContract.View {
+
+    var fragmentList = mutableListOf<Fragment>()
+
+    var currentFragment: Fragment? = null
 
     override fun getLayoutId(): Int {
         return R.layout.activity_main
@@ -26,13 +31,17 @@ class MainActivity : BaseMvpActivity<ActivityMainBinding, MainContract.Presenter
     }
 
     override fun initView() {
+        fragmentList.add(HomeFragment())
+        fragmentList.add(BorrowFragment())
+        fragmentList.add(MineFragment())
+        viewPager.offscreenPageLimit = 0
         viewPager.adapter = ViewPagerAdapter(
-            supportFragmentManager,
-            listOf(HomeFragment(), BorrowFragment(), MineFragment())
+            supportFragmentManager, fragmentList
         )
     }
 
     override fun initData() {
+
     }
 
     override fun initListener() {
@@ -53,16 +62,19 @@ class MainActivity : BaseMvpActivity<ActivityMainBinding, MainContract.Presenter
 
 
     private fun onBottomNavigationSelectChanged(menuItem: MenuItem) {
+        var index = 0
         when (menuItem.itemId) {
             R.id.nav_home -> {
-                viewPager.currentItem = 0
+                index = 0
             }
             R.id.nav_borrow -> {
-                viewPager.currentItem = 1
+                index = 1
             }
             R.id.nav_mine -> {
-                viewPager.currentItem = 2
+                index = 2
             }
         }
+        viewPager.currentItem = index
+        currentFragment = fragmentList[index]
     }
 }
