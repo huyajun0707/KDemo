@@ -94,7 +94,7 @@ class NetworkEngine {
 
     /**获取有缓存设置的OkHttpClient.Builder配置信息*/
     fun getOkHttpClientCacheConfig(
-        headerMap: Map<String, String>,
+        headerMap: Map<String, () -> String>,
         timeOut: Long,
         tag: String,
         debug: Boolean,
@@ -122,7 +122,7 @@ class NetworkEngine {
 
     /**获取无缓存的OkHttpClient.Builder配置信息*/
     fun getOkHttpClientConfig(
-        headerMap: Map<String, String>,
+        headerMap: Map<String, () -> String>,
         timeOut: Long,
         tag: String,
         debug: Boolean
@@ -151,7 +151,7 @@ class NetworkEngine {
         private var application: Application? = null
         private var baseUrl: String? = null
         private var retrofit: Retrofit? = null
-        private var headerMap: Map<String, String>? = null
+        private var headerMap: Map<String, () -> String>? = null
 
 
         fun setTimeOut(timeOut: Long): Builder {
@@ -174,7 +174,7 @@ class NetworkEngine {
             return this
         }
 
-        fun setHeaderMap(map: Map<String, String>): Builder {
+        fun setHeaderMap(map: Map<String, () -> String>): Builder {
             this.headerMap = map
             return this
         }

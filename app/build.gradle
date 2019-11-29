@@ -39,6 +39,9 @@ android {
         enabled = true
     }
 
+    androidExtensions {
+        experimental = true
+    }
 
     //指定jdk版本
     compileOptions {

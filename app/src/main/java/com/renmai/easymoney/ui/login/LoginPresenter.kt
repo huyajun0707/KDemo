@@ -1,10 +1,10 @@
 package com.renmai.easymoney.ui.login
 
-import com.github.netlibrary.listener.DataLoadingCallback
-import com.github.netlibrary.utils.callback
 import com.renmai.baselibrary.base.mvp.presenter.BasePresenter
 import com.renmai.easymoney.entity.LoginInfo
 import com.renmai.easymoney.net.ApiService
+import com.renmai.easymoney.net.DataLoadingCallback
+import com.renmai.easymoney.net.callback
 
 /**
  * @author      ： HuYajun <huyajun0707@gmail.com>

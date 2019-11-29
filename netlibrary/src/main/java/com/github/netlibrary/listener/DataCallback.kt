@@ -21,7 +21,7 @@ interface DataCallback<T> {
     fun onLoadedData(data: T?)
 
     /**网络请求失败，非200情况时调用*/
-    fun onFailed(msg: String)
+    fun onFailed(code: String, msg: String)
 
     /**网络请求出错*/
     fun onError(e: Throwable)
@@ -30,101 +30,3 @@ interface DataCallback<T> {
     fun onComplete()
 }
 
-/**
- * 通用的数据回调抽象类，
- * [D]为数据类型
- * [V]为view接口
- * TODO 注意：如果有特殊需求，请自行实现[DataCallback]接口
- *
- * @author      ： CuiYancey <cuiyuancheng0322@gmail.com>
- * @version     ： 1.0
- * @date        ： 2019-09-25 11:18
- */
-abstract class DataLoadingCallback<D>(view: ILoadingView?) :
-    DataCallback<D> {
-    private var mView: ILoadingView? = null
-
-    init {
-        this.mView = view
-    }
-
-    override fun onStart() {
-        mView?.showLoading()
-    }
-
-    override fun onFailed(msg: String) {
-        mView?.showFailureMessage(msg)
-    }
-
-    override fun onError(e: Throwable) {
-        mView?.showErrorMessage(e.message.toString())
-        mView?.hideLoading()
-    }
-
-    override fun onComplete() {
-        mView?.hideLoading()
-    }
-
-
-    /**接口返回的BaseResponse<D>数据的处理逻辑*/
-    override fun onBaseDataHandle(baseData: BaseResponse<D>?) {
-        if (baseData != null) {
-            if (baseData.code.equals("200")) {
-                //展示数据
-                onLoadedData(baseData.data)
-            } else {
-                onFailed(baseData.msg)
-            }
-        } else {
-            //BaseResponse为空，显示获取数据失败视图
-            onFailed("未获取到网络数据。")
-        }
-    }
-
-}
-
-/**
- * 没有loading窗
- */
-abstract class DataNoLoadingCallback<D>(view: ILoadingView?) :
-    DataCallback<D> {
-    private var mView: ILoadingView? = null
-
-    init {
-        this.mView = view
-    }
-
-    override fun onStart() {
-        mView?.showLoading()
-    }
-
-    override fun onFailed(msg: String) {
-        mView?.showFailureMessage(msg)
-    }
-
-    override fun onError(e: Throwable) {
-        mView?.showErrorMessage(e.message.toString())
-        mView?.hideLoading()
-    }
-
-    override fun onComplete() {
-        mView?.hideLoading()
-    }
-
-
-    /**接口返回的BaseResponse<D>数据的处理逻辑*/
-    override fun onBaseDataHandle(baseData: BaseResponse<D>?) {
-        if (baseData != null) {
-            if (baseData.code.equals("200")) {
-                //展示数据
-                onLoadedData(baseData.data)
-            } else {
-                onFailed(baseData.msg)
-            }
-        } else {
-            //BaseResponse为空，显示获取数据失败视图
-            onFailed("未获取到网络数据。")
-        }
-    }
-
-}

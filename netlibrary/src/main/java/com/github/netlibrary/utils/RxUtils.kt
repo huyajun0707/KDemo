@@ -2,13 +2,8 @@ package com.github.netlibrary.utils
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import com.github.netlibrary.listener.DataLoadingCallback
-import com.github.netlibrary.listener.DataNoLoadingCallback
-import com.github.netlibrary.listener.HttpCallBack
-import com.github.netlibrary.observer.RxObserver
 import com.github.netlibrary.retry.RetryWhenNetworkException1
 import com.github.netlibrary.retry.RetryWhenNetworkException2
-import com.renmai.component.network.BaseResponse
 import com.uber.autodispose.FlowableSubscribeProxy
 import com.uber.autodispose.ObservableSubscribeProxy
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider
@@ -80,32 +75,6 @@ fun <T> Observable<T>.bindLifecycle(owner: LifecycleOwner): ObservableSubscribeP
 fun <T> Flowable<T>.bindLifecycle(owner: LifecycleOwner): FlowableSubscribeProxy<T>{
     //使用AutoDispose管理生命周期，在onDestroy中解除订阅
     return this.autoDisposable(AndroidLifecycleScopeProvider.from(owner, Lifecycle.Event.ON_DESTROY))
-}
-
-/**
- * 包装一层减少代码量
- */
-fun <T,D> Observable<T>.callback(owner: LifecycleOwner,callback: DataLoadingCallback<D>) {
-
-    return this.bindLifecycleWithScheduler(owner).subscribe(
-        RxObserver(
-            HttpCallBack<BaseResponse<D>, D>(callback)
-        )
-    )
-
-}
-
-/**
- * 包装一层减少代码量
- */
-fun <T,D> Observable<T>.callback(owner: LifecycleOwner,callback: DataNoLoadingCallback<D>) {
-
-    return this.bindLifecycleWithScheduler(owner).subscribe(
-        RxObserver(
-            HttpCallBack<BaseResponse<D>, D>(callback)
-        )
-    )
-
 }
 
 

@@ -6,7 +6,6 @@ import com.renmai.component.utils.UserUtils
 import com.renmai.easymoney.BuildConfig
 import com.renmai.easymoney.constant.Constant
 import com.renmai.easymoney.entity.IndexStatus
-import com.renmai.easymoney.entity.LoginInfo
 import io.reactivex.Observable
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -24,7 +23,7 @@ interface ApiService {
 
         val instance: ApiService by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             com.github.netlibrary.NetworkEngine.builder().setApplication(BaseApplication.instance())
-                .setHeaderMap(hashMapOf(Pair("Authorization", UserUtils.getToken())))
+                .setHeaderMap(mutableMapOf(Pair("Authorization", { UserUtils.getToken() })))
                 .setDebug(BuildConfig.DEBUG)
                 .baseUrl(Constant.BASE_URL)
                 .build()
@@ -37,7 +36,7 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST("api/userlogin/v1/sendValidateCode")
-    fun login(@Field("mobile") mobile: String): Observable<BaseResponse<LoginInfo>>
+    fun login(@Field("mobile") mobile: String): Observable<BaseResponse<*>>
 
 
 //    @GET

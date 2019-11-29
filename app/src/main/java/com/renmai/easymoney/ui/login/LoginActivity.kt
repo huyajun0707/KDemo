@@ -50,6 +50,7 @@ class LoginActivity : BaseMvpActivity<ActivityLoginBinding, LoginContract.Presen
      * @param baseTarget
      */
     override fun normalOnClick(v: View?) {
+
         when (v?.id) {
             R.id.mBtNext -> {
                 mPresenter?.login(mEtPhoneNum.text.toString())
@@ -60,6 +61,7 @@ class LoginActivity : BaseMvpActivity<ActivityLoginBinding, LoginContract.Presen
 
     override fun loginSuccess() {
         startActivity(MainActivity::class.java)
+
     }
 
 
