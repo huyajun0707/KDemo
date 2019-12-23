@@ -1,12 +1,16 @@
 package com.renmai.easymoney.ui.login
 
+import android.annotation.SuppressLint
 import android.view.View
+import com.jakewharton.rxbinding3.view.clicks
 import com.renmai.baselibrary.base.mvp.activity.BaseMvpActivity
 import com.renmai.easymoney.R
 import com.renmai.easymoney.databinding.ActivityLoginBinding
 import com.renmai.easymoney.helper.NavBarHelper
 import com.renmai.easymoney.ui.main.MainActivity
+import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_login.*
+import java.util.concurrent.TimeUnit
 
 class LoginActivity : BaseMvpActivity<ActivityLoginBinding, LoginContract.Presenter>(),
     LoginContract.View {
@@ -49,13 +53,19 @@ class LoginActivity : BaseMvpActivity<ActivityLoginBinding, LoginContract.Presen
      * @param strategy
      * @param baseTarget
      */
+    var i =0
+    @SuppressLint("AutoDispose")
     override fun normalOnClick(v: View?) {
+        v?.clicks()?.throttleFirst(2,TimeUnit.SECONDS)?.subscribe(Consumer {
 
-        when (v?.id) {
-            R.id.mBtNext -> {
-                mPresenter?.login(mEtPhoneNum.text.toString())
+            when (v?.id) {
+                R.id.mBtNext -> {
+//                    println("mbtNext${i++}")
+                    mPresenter?.login("111")
+                }
             }
-        }
+        })
+
 
     }
 

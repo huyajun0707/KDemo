@@ -1,7 +1,6 @@
 package com.renmai.easymoney.ui.login
 
 import com.renmai.baselibrary.base.mvp.presenter.BasePresenter
-import com.renmai.easymoney.entity.LoginInfo
 import com.renmai.easymoney.net.ApiService
 import com.renmai.easymoney.net.DataLoadingCallback
 import com.renmai.easymoney.net.callback
@@ -20,11 +19,23 @@ class LoginPresenter(val view: LoginContract.View) : BasePresenter<LoginContract
 
 
     override fun login(mobile: String) {
+//        mWeakOwner?.get()?.let {
+//            ApiService.instance.login(mobile)
+//                .callback(it, object : DataLoadingCallback<LoginInfo>(view) {
+//                    override fun onLoadedData(data: LoginInfo?) {
+//                        view.loginSuccess()
+//                    }
+//
+//                })
+//
+//
+//        }
+
         mWeakOwner?.get()?.let {
-            ApiService.instance.login(mobile)
-                .callback(it, object : DataLoadingCallback<LoginInfo>(view) {
-                    override fun onLoadedData(data: LoginInfo?) {
-                        view.loginSuccess()
+            ApiService.instance.testNetwork()
+                .callback(it, object : DataLoadingCallback<Any>(view) {
+                    override fun onLoadedData(data: Any?) {
+                        println("--->success")
                     }
 
                 })

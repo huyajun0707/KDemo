@@ -1,5 +1,6 @@
 package com.github.netlibrary.listener
 
+import android.util.Log
 import com.renmai.component.network.BaseResponse
 
 /**
@@ -18,6 +19,7 @@ class HttpCallBack<T, D>(val dataCallback: DataCallback<D>) : HttpOnNextListener
         try {
             dataCallback.onBaseDataHandle(baseData as BaseResponse<D>)
         } catch (e: Exception) {
+            Log.e("---->",e.message.toString())
             onError(e)
         }
 

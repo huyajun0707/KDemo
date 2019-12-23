@@ -5,7 +5,7 @@ import com.renmai.component.network.BaseResponse
 import com.renmai.component.utils.UserUtils
 import com.renmai.easymoney.BuildConfig
 import com.renmai.easymoney.constant.Constant
-import com.renmai.easymoney.entity.IndexStatus
+import com.renmai.easymoney.entity.UserInfo
 import io.reactivex.Observable
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -32,12 +32,14 @@ interface ApiService {
     }
 
     @GET("api/indexStatus")
-    fun testNetwork(): Observable<BaseResponse<IndexStatus>>
+    fun testNetwork(): Observable<BaseResponse<Any>>
 
     @FormUrlEncoded
     @POST("api/userlogin/v1/sendValidateCode")
     fun login(@Field("mobile") mobile: String): Observable<BaseResponse<*>>
 
+    @GET("api/v1/user/info")
+    fun getUserInfo(): Observable<BaseResponse<UserInfo>>
 
 //    @GET
 //    abstract operator fun get(@Url url: String, @QueryMap params: Map<String, String>): Observable<BaseResponse<*>>

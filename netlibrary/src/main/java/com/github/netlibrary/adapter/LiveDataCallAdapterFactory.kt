@@ -1,4 +1,4 @@
-package com.example.component.network.adapter
+package com.github.netlibrary.cache.adapter
 
 import androidx.lifecycle.LiveData
 import com.renmai.component.network.BaseResponse

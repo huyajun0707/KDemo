@@ -45,6 +45,9 @@ dependencies {
     api deps.autodispose
     api deps.autodispose_android
     api deps.lifecycle
+//    api deps.fastjson
+//    api deps.converter_fastjson
+//    debugApi 'com.didichuxing.doraemonkit:doraemonkit:1.2.1'
 }
 
 apply from: 'maven_upload.gradle'

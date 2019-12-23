@@ -1,10 +1,10 @@
-package com.example.component.network.adapter
+package com.github.netlibrary.cache.adapter
 
 import androidx.lifecycle.LiveData
-import com.google.gson.JsonParseException
-import com.renmai.component.network.BaseResponse
 import com.github.netlibrary.observer.ExceptionReason
 import com.github.netlibrary.utils.LogUtil
+import com.google.gson.JsonParseException
+import com.renmai.component.network.BaseResponse
 import org.json.JSONException
 import retrofit2.*
 import java.io.InterruptedIOException

@@ -1,6 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-buildscript { 
+buildscript {
     ext.kotlin_version = '1.3.41'
 
     ext {
@@ -96,5 +96,8 @@ ext.deps = [
         mmkv                                 : 'com.tencent:mmkv:1.0.22',
         multidex                             : 'androidx.multidex:multidex:2.0.1',
         legacy                               : 'androidx.legacy:legacy-support-v4:1.0.0',
+        fastjson                             : 'com.alibaba:fastjson:1.1.55.android',
+//        converter_fastjson                   : 'org.ligboy.retrofit2:converter-fastjson-android:2.1.0',
+        converter_fastjson                   : 'com.github.BaronZ88:Retrofit2-FastJson-Converter:1.2',
 
 ]

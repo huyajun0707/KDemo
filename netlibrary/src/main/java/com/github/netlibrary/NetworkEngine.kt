@@ -3,8 +3,8 @@ package com.github.netlibrary
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import com.example.component.network.adapter.LiveDataCallAdapterFactory
 import com.github.netlibrary.cache.CacheMode
+import com.github.netlibrary.cache.adapter.LiveDataCallAdapterFactory
 import com.github.netlibrary.https.HttpsFactory
 import com.github.netlibrary.interceptor.CacheInterceptor
 import com.github.netlibrary.interceptor.CacheNetworkInterceptor
@@ -17,6 +17,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.util.concurrent.TimeUnit
+
+
 
 /**
  * @author      ： HuYajun <huyajun0707@gmail.com>
@@ -81,7 +83,7 @@ class NetworkEngine {
     /**获取Retrofit配置信息*/
     fun getRetrofitConfig(): Retrofit.Builder {
         return Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(com.github.netlibrary.adapter.GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
     }
 
@@ -128,7 +130,7 @@ class NetworkEngine {
         debug: Boolean
     ): OkHttpClient.Builder {
         val builder: OkHttpClient.Builder = OkHttpClient.Builder()
-            .readTimeout(timeOut, TimeUnit.SECONDS)//读取超时
+//            .readTimeout(timeOut, TimeUnit.SECONDS)//读取超时
             .connectTimeout(timeOut, TimeUnit.SECONDS)//链接超时
             .writeTimeout(timeOut, TimeUnit.SECONDS)//写超时
             .sslSocketFactory(HttpsFactory.getSslSocketFactory(null, null))

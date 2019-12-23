@@ -1,4 +1,4 @@
-package com.github.netlibrary.adapter
+package com.github.netlibrary.cache.adapter
 
 import android.app.Application
 import androidx.lifecycle.LifecycleOwner

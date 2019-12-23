@@ -1,6 +1,7 @@
 package com.github.netlibrary.interceptor
 
 
+import android.text.TextUtils
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
@@ -23,23 +24,14 @@ class HeaderInterceptor(headerMap: Map<String, () -> String>) : Interceptor {
         val headers = original.headers()
         val headerRequestBuilder = headers.newBuilder()
         headerMap?.let {
-            it.forEach() { item ->
-                headerRequestBuilder.add(item.key, item.value.invoke())
+            it.forEach { item ->
+                if (!TextUtils.isEmpty(item.value.invoke()))
+                    headerRequestBuilder.add(item.key, item.value.invoke())
             }
             val builder = original.newBuilder().headers(headerRequestBuilder.build())
             val request = builder.build()
             return chain.proceed(request)
         }
         return chain.proceed(chain.request())
-    }
-
-    fun action(first: Int, callback: () -> Unit) {
-
-        //调用
-//        callback()
-    }
-
-    fun test(): String {
-        return "1"
     }
 }

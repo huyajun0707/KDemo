@@ -102,7 +102,7 @@ abstract class DataNoLoadingCallback<D>(view: ILoadingView?) :
     /**接口返回的BaseResponse<D>数据的处理逻辑*/
     override fun onBaseDataHandle(baseData: BaseResponse<D>?) {
         if (baseData != null) {
-            if (baseData.code.equals("200")) {
+            if (baseData.code.equals("200") && baseData.success!!) {
                 //展示数据
                 onLoadedData(baseData.data)
             } else {
@@ -120,7 +120,7 @@ abstract class DataNoLoadingCallback<D>(view: ILoadingView?) :
 /**
  * 包装一层减少代码量
  */
-fun <T,D> Observable<T>.callback(owner: LifecycleOwner, callback: DataLoadingCallback<D>) {
+fun <T, D> Observable<T>.callback(owner: LifecycleOwner, callback: DataLoadingCallback<D>) {
 
     return this.bindLifecycleWithScheduler(owner).subscribe(
         RxObserver(
@@ -133,7 +133,7 @@ fun <T,D> Observable<T>.callback(owner: LifecycleOwner, callback: DataLoadingCal
 /**
  * 包装一层减少代码量
  */
-fun <T,D> Observable<T>.callback(owner: LifecycleOwner, callback: DataNoLoadingCallback<D>) {
+fun <T, D> Observable<T>.callback(owner: LifecycleOwner, callback: DataNoLoadingCallback<D>) {
 
     return this.bindLifecycleWithScheduler(owner).subscribe(
         RxObserver(
@@ -143,7 +143,7 @@ fun <T,D> Observable<T>.callback(owner: LifecycleOwner, callback: DataNoLoadingC
 
 }
 
-fun <T,D> Observable<T>.retryCallback(owner: LifecycleOwner, callback: DataLoadingCallback<D>) {
+fun <T, D> Observable<T>.retryCallback(owner: LifecycleOwner, callback: DataLoadingCallback<D>) {
 
     return this.bindLifecycleForNetwork(owner).subscribe(
         RxObserver(
@@ -153,7 +153,7 @@ fun <T,D> Observable<T>.retryCallback(owner: LifecycleOwner, callback: DataLoadi
 }
 
 
-fun <T,D> Observable<T>.retryCallback(owner: LifecycleOwner, callback: DataNoLoadingCallback<D>) {
+fun <T, D> Observable<T>.retryCallback(owner: LifecycleOwner, callback: DataNoLoadingCallback<D>) {
 
     return this.bindLifecycleForNetwork(owner).subscribe(
         RxObserver(
