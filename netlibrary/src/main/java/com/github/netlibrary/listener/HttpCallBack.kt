@@ -17,9 +17,10 @@ class HttpCallBack<T, D>(val dataCallback: DataCallback<D>) : HttpOnNextListener
 
     override fun onNext(baseData: T?) {
         try {
+//            Log.d("---->",baseData.toString())
             dataCallback.onBaseDataHandle(baseData as BaseResponse<D>)
         } catch (e: Exception) {
-            Log.e("---->",e.message.toString())
+            Log.e("---->Type cast failed",e.message.toString())
             onError(e)
         }
 
