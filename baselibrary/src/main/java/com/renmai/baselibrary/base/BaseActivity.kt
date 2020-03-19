@@ -1,8 +1,11 @@
 package com.renmai.baselibrary.base
 
 import android.content.Intent
+import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.renmai.baselibrary.base.mvp.mvpinterface.BaseView
 
 /**
  * @author      ： HuYajun <huyajun0707@gmail.com>
@@ -11,7 +14,15 @@ import com.bumptech.glide.Glide
  * @depiction   ：
  */
 
-abstract class BaseActivity : AppCompatActivity(){
+abstract class BaseActivity : AppCompatActivity(), BaseView{
+
+
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+
+
+    }
+
 
     /**
      * 系统低内存环境：在系统内存不足，所有后台程序（优先级为background的进程，不是指后台运行的进程）都被杀死时，系统会调用OnLowMemory

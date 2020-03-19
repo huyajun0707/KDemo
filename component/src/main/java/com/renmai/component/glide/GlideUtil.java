@@ -21,7 +21,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.BaseTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.ViewPropertyTransition;
-import com.github.netlibrary.utils.LogUtil;
+import com.network.library.utils.LogUtil;
 import com.renmai.component.constant.Constant;
 
 /**

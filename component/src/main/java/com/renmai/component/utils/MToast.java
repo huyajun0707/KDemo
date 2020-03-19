@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.github.netlibrary.utils.LogUtil;
+import com.network.library.utils.LogUtil;
 import com.renmai.component.R;
 
 

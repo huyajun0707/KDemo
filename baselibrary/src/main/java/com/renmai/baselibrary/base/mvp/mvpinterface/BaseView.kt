@@ -1,7 +1,5 @@
 package com.renmai.baselibrary.base.mvp.mvpinterface
 
-import com.github.netlibrary.listener.ILoadingView
-
 
 /**
  * @author      ： HuYajun <huyajun0707@gmail.com>
@@ -10,7 +8,7 @@ import com.github.netlibrary.listener.ILoadingView
  * @depiction   ：
  */
 
-interface BaseView : ILoadingView {
+interface BaseView : com.network.library.listener.ILoadingView {
 
     /**
      * 显示提示

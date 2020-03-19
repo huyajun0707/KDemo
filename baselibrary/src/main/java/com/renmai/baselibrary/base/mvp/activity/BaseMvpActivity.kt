@@ -94,6 +94,7 @@ abstract class BaseMvpActivity<V : ViewDataBinding, P : IPresenter> : BaseActivi
     protected abstract fun destroyViewAndThing()
 
     override fun showLoading() {
+        println("---->showLoading")
         //是否判断在前台
         dialogFragment?.dismiss()
         if (dialogFragment == null) {
@@ -103,6 +104,7 @@ abstract class BaseMvpActivity<V : ViewDataBinding, P : IPresenter> : BaseActivi
     }
 
     override fun hideLoading() {
+        println("---->hideLoading")
         dialogFragment?.dismiss()
     }
 

@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">任意花</string>
+    <string name="app_name">KDemo</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tab_home">首页</string>

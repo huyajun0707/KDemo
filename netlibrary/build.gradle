@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -45,6 +46,10 @@ dependencies {
     api deps.autodispose
     api deps.autodispose_android
     api deps.lifecycle
+    api deps.coroutines_adapter
+    api deps.coroutines
+    api deps.viewmodel
+//    api deps.coroutines_retrofit
 //    api deps.fastjson
 //    api deps.converter_fastjson
 //    debugApi 'com.didichuxing.doraemonkit:doraemonkit:1.2.1'
