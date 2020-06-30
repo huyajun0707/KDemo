@@ -10,7 +10,7 @@ import kotlin.coroutines.ContinuationInterceptor
  * @date        ： 2020-01-13 00:36
  * @depiction   ：
  */
-class AsyncContext:AbstractCoroutineContextElement(ContinuationInterceptor),
+open class AsyncContext:AbstractCoroutineContextElement(ContinuationInterceptor),
     ContinuationInterceptor {
     override fun <T> interceptContinuation(continuation: Continuation<T>): Continuation<T> {
         return UICotinuationWrapper(continuation.context.fold(continuation){

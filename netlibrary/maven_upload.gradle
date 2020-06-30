@@ -2,7 +2,7 @@ apply plugin: 'maven'
 
 def GROUP_ID = "com.gihub.network"
 def ARTIFACT_ID = "lib-sample-net"
-def VERSION_NAME = "1.0.0"
+def VERSION_NAME = "1.1.0"
 
 uploadArchives {
     repositories.mavenDeployer {

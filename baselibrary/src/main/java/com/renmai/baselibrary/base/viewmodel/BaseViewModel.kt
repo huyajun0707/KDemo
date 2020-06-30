@@ -12,5 +12,4 @@ import com.renmai.component.utils.ReflectionUtils
 open class BaseViewModel<T:BaseRepository> : ViewModel() {
     val repository = ReflectionUtils.getNewInstance(this,0) as T
 
-
 }

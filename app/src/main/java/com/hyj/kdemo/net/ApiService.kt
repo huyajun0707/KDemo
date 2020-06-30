@@ -2,6 +2,7 @@ package com.hyj.kdemo.net
 
 import com.hyj.kdemo.BuildConfig
 import com.hyj.kdemo.entity.IndexStatus
+import com.network.library.NetworkEngine
 import com.renmai.baselibrary.base.BaseApplication
 import com.renmai.component.network.BaseResponse
 import com.renmai.component.utils.UserUtils
@@ -18,7 +19,7 @@ interface ApiService {
     companion object {
 
         val instance: ApiService by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
-            com.network.library.NetworkEngine.builder().setApplication(BaseApplication.instance())
+           NetworkEngine.builder().setApplication(BaseApplication.instance())
                 .setHeaderMap(mutableMapOf(Pair("Authorization", { UserUtils.getToken() })))
                 .setDebug(BuildConfig.DEBUG)
                 .baseUrl(com.hyj.kdemo.constant.Constant.BASE_URL)

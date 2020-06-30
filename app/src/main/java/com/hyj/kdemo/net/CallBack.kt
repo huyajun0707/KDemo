@@ -18,7 +18,7 @@ import io.reactivex.Observable
  * @date        ： 2019-09-25 11:18
  */
 abstract class DataLoadingCallback<D>(view: com.network.library.listener.ILoadingView?) :
-    com.network.library.listener.DataCallback<D> {
+    DataCallback<BaseResponse<D>,D> {
     private var mView: com.network.library.listener.ILoadingView? = null
 
     init {
@@ -64,7 +64,7 @@ abstract class DataLoadingCallback<D>(view: com.network.library.listener.ILoadin
  * 没有loading窗
  */
 abstract class DataNoLoadingCallback<D>(view: com.network.library.listener.ILoadingView?) :
-    com.network.library.listener.DataCallback<D> {
+    DataCallback<BaseResponse<D>,D> {
     private var mView: com.network.library.listener.ILoadingView? = null
 
     init {

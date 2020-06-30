@@ -10,7 +10,7 @@ import kotlin.coroutines.EmptyCoroutineContext
  * @date        ： 2020-01-12 23:19
  * @depiction   ：
  */
-class BaseContinuation :Continuation<Unit>{
+open class BaseContinuation :Continuation<Unit>{
     override val context: CoroutineContext=EmptyCoroutineContext
 
     override fun resumeWith(result: Result<Unit>) {

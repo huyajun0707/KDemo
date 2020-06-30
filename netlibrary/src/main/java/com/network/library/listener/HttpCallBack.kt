@@ -1,7 +1,6 @@
 package com.network.library.listener
 
 import android.util.Log
-import com.renmai.component.network.BaseResponse
 
 /**
  * @author      ： HuYajun <huyajun0707@gmail.com>
@@ -10,7 +9,7 @@ import com.renmai.component.network.BaseResponse
  * @depiction   ：
  */
 
-class HttpCallBack<T, D>(val dataCallback: com.network.library.listener.DataCallback<D>) : com.network.library.listener.HttpOnNextListener<T>() {
+class HttpCallBack<T, D>(val dataCallback: DataCallback<T,D>) : com.network.library.listener.HttpOnNextListener<T>() {
     override fun onStart() {
         dataCallback.onStart()
     }
@@ -18,7 +17,7 @@ class HttpCallBack<T, D>(val dataCallback: com.network.library.listener.DataCall
     override fun onNext(baseData: T?) {
         try {
 //            Log.d("---->",baseData.toString())
-            dataCallback.onBaseDataHandle(baseData as BaseResponse<D>)
+            dataCallback.onBaseDataHandle(baseData as T)
         } catch (e: Exception) {
             Log.e("---->Type cast failed",e.message.toString())
             onError(e)

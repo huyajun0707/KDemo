@@ -36,6 +36,11 @@ interface ILoadingView {
      */
     fun showErrorMessage(msg: String)
 
+    /**
+     * 关闭页面
+     */
+    fun finishActivity()
+
 
 
 }

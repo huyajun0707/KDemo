@@ -3,15 +3,17 @@ package com.network.library
 import android.app.Application
 import android.content.Context
 import android.util.Log
-import com.github.netlibrary.cache.adapter.LiveDataCallAdapterFactory
+import com.network.library.adapter.GsonConverterFactory
+import com.network.library.cache.CacheMode
+import com.network.library.https.HttpsFactory
+import com.network.library.interceptor.*
 import okhttp3.Cache
 import okhttp3.OkHttpClient
+import retrofit2.CallAdapter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.util.concurrent.TimeUnit
-
 
 
 /**
@@ -24,32 +26,33 @@ class NetworkEngine {
     private constructor()
 
     /**应用缓存拦截器，执行真正的网络请求前，查找本地缓存。如果找到了那就直接返回response*/
-    private var cacheInterceptor: com.network.library.interceptor.CacheInterceptor? = null
+    private var cacheInterceptor: CacheInterceptor? = null
     /**网络缓存拦截器，如果没有本地缓存，就会执行真正的网络请求，请求成功后，可以对数据进行操作，然后将数据缓存起来*/
-    private var cacheNetworkInterceptor: com.network.library.interceptor.CacheNetworkInterceptor? = null
+    private var cacheNetworkInterceptor: CacheNetworkInterceptor? =
+        null
     /**是否是文件缓存，默认为false，既默认使用数据库缓存*/
     private var isFileCache: Boolean = false
     var isCacheConfigureChanged: Boolean = false
 
     fun init(context: Context) {
-        cacheInterceptor = com.network.library.interceptor.CacheInterceptor(
-            com.network.library.cache.CacheMode.IF_CACHE_EXPIRED_REQUEST,
+        cacheInterceptor = CacheInterceptor(
+            CacheMode.IF_CACHE_EXPIRED_REQUEST,
             context
         )
         cacheNetworkInterceptor =
-            com.network.library.interceptor.CacheNetworkInterceptor(com.network.library.cache.CacheMode.IF_CACHE_EXPIRED_REQUEST)
+            CacheNetworkInterceptor(CacheMode.IF_CACHE_EXPIRED_REQUEST)
     }
 
     companion object {
 
-        fun builder(): com.network.library.NetworkEngine.Builder {
-            return com.network.library.NetworkEngine.Builder()
+        fun builder(): Builder {
+            return Builder()
         }
     }
 
 
     /**使用文件缓存*/
-    fun useFileCache(): com.network.library.NetworkEngine {
+    fun useFileCache(): NetworkEngine {
         if (!isFileCache) {
             isFileCache = true
             isCacheConfigureChanged = true
@@ -60,14 +63,14 @@ class NetworkEngine {
     }
 
     /**设置有网缓存时间[secondsCacheTime]，单位：秒*/
-    fun setNetworkCacheTime(secondsCacheTime: Int): com.network.library.NetworkEngine {
+    fun setNetworkCacheTime(secondsCacheTime: Int): NetworkEngine {
         cacheInterceptor?.cacheTimeWithNetwork(secondsCacheTime)
         cacheNetworkInterceptor?.cacheTimeWithNetwork(secondsCacheTime)
         return this
     }
 
     /**设置无网缓存时间[secondsCacheTime]，单位：秒*/
-    fun setFreeCacheTime(secondsCacheTime: Int): com.network.library.NetworkEngine {
+    fun setFreeCacheTime(secondsCacheTime: Int): NetworkEngine {
         cacheInterceptor?.cacheTimeWithFree(secondsCacheTime)
         cacheNetworkInterceptor?.cacheTimeWithFree(secondsCacheTime)
         return this
@@ -77,22 +80,22 @@ class NetworkEngine {
     /**获取Retrofit配置信息*/
     fun getRetrofitConfig(): Retrofit.Builder {
         return Retrofit.Builder()
-            .addConverterFactory(com.network.library.interceptor.NullOnEmptyConverterFactory())
-            .addConverterFactory(com.network.library.adapter.GsonConverterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
     }
 
     /**获取协程Retrofit配置信息*/
     fun getRetrofitCoroutineConfig(): Retrofit.Builder {
         return Retrofit.Builder()
-            .addConverterFactory(com.network.library.adapter.GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
 //            .addCallAdapterFactory(CoroutineCallAdapterFactory())
     }
 
     /**获取Retrofit livedata配置信息*/
-    fun getRetrofitLiveDataConfig(): Retrofit.Builder {
+    fun getRetrofitLiveDataConfig(factory: CallAdapter.Factory): Retrofit.Builder {
         return Retrofit.Builder()
-            .addCallAdapterFactory(LiveDataCallAdapterFactory())
+            .addCallAdapterFactory(factory)
             .addConverterFactory(GsonConverterFactory.create())
     }
 
@@ -132,15 +135,20 @@ class NetworkEngine {
         debug: Boolean
     ): OkHttpClient.Builder {
         val builder: OkHttpClient.Builder = OkHttpClient.Builder()
-//            .readTimeout(timeOut, TimeUnit.SECONDS)//读取超时
+            .readTimeout(timeOut, TimeUnit.SECONDS)//读取超时
             .connectTimeout(timeOut, TimeUnit.SECONDS)//链接超时
             .writeTimeout(timeOut, TimeUnit.SECONDS)//写超时
-            .sslSocketFactory(com.network.library.https.HttpsFactory.getSslSocketFactory(null, null))
-            .addInterceptor(com.network.library.interceptor.HeaderInterceptor(headerMap))
+            .sslSocketFactory(
+                HttpsFactory.getSslSocketFactory(
+                    null,
+                    null
+                )
+            )
+            .addInterceptor(HeaderInterceptor(headerMap))
 //            .retryOnConnectionFailure(true)
         if (debug) {
             //日志打印
-            builder.addInterceptor(com.network.library.interceptor.LoggerInterceptor(tag, true))
+            builder.addInterceptor(LoggerInterceptor(tag, true))
         }
         return builder
     }
@@ -158,45 +166,45 @@ class NetworkEngine {
         private var headerMap: Map<String, () -> String>? = null
 
 
-        fun setTimeOut(timeOut: Long): com.network.library.NetworkEngine.Builder {
+        fun setTimeOut(timeOut: Long): Builder {
             this.timeOut = timeOut
             return this
         }
 
-        fun setDebug(debug: Boolean): com.network.library.NetworkEngine.Builder {
+        fun setDebug(debug: Boolean): Builder {
             this.debug = debug
             return this
         }
 
-        fun setLogTag(tag: String): com.network.library.NetworkEngine.Builder {
+        fun setLogTag(tag: String): Builder {
             this.logTag = tag
             return this
         }
 
-        fun isCache(cache: Boolean): com.network.library.NetworkEngine.Builder {
+        fun isCache(cache: Boolean): Builder {
             this.isCache = cache
             return this
         }
 
-        fun setHeaderMap(map: Map<String, () -> String>): com.network.library.NetworkEngine.Builder {
+        fun setHeaderMap(map: Map<String, () -> String>): Builder {
             this.headerMap = map
             return this
         }
 
-        fun baseUrl(url: String): com.network.library.NetworkEngine.Builder {
+        fun baseUrl(url: String): Builder {
             this.baseUrl = url
             return this
         }
 
 
-        fun setApplication(application: Application): com.network.library.NetworkEngine.Builder {
+        fun setApplication(application: Application): Builder {
             this.application = application
             return this
         }
 
 
-        fun build(): com.network.library.NetworkEngine.Builder {
-            var networkEngine = com.network.library.NetworkEngine()
+        fun build(): Builder {
+            var networkEngine = NetworkEngine()
             if (application == null) {
                 throw Exception("网络配置不完整，请检查...")
             }

@@ -3,6 +3,7 @@ package com.hyj.kdemo.net
 import android.os.Handler
 import android.os.Looper
 import com.google.gson.JsonParseException
+import com.network.library.listener.DataCallback
 import com.network.library.listener.ILoadingView
 import com.renmai.component.network.BaseResponse
 import kotlinx.coroutines.*
@@ -160,8 +161,8 @@ fun <T> CoroutineScope.safeNoLoaddingLaunch(
 /**
  * 异常统一处理函数
  */
-fun <T> onException(
-    dataCallback: com.network.library.listener.DataCallback<T>,
+fun <T,D> onException(
+    dataCallback: DataCallback<T,D>,
     exception: com.network.library.observer.ExceptionReason
 ) {
     when (exception) {
