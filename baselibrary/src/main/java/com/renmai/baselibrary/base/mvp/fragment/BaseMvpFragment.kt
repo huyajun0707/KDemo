@@ -185,6 +185,10 @@ abstract class BaseMvpFragment<V : ViewDataBinding, P : IPresenter> : Fragment()
 
     }
 
+    override fun finishActivity() {
+
+    }
+
 
     fun lifecycle(){
       lifecycle.addObserver(object : LifecycleObserver {

@@ -162,5 +162,9 @@ abstract class ActivityViewImplement<V : ViewDataBinding, T : BaseViewModel<*>> 
 
     }
 
+    override fun finishActivity() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 
 }

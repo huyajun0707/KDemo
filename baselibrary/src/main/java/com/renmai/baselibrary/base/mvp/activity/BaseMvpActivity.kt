@@ -132,6 +132,10 @@ abstract class BaseMvpActivity<V : ViewDataBinding, P : IPresenter> : BaseActivi
 
     }
 
+    override fun finishActivity() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     abstract fun normalOnClick(v: View?)
 
 }

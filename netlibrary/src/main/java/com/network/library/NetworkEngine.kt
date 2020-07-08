@@ -8,6 +8,7 @@ import com.network.library.cache.CacheMode
 import com.network.library.https.HttpsFactory
 import com.network.library.interceptor.*
 import okhttp3.Cache
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
@@ -164,6 +165,7 @@ class NetworkEngine {
         private var baseUrl: String? = null
         private var retrofit: Retrofit? = null
         private var headerMap: Map<String, () -> String>? = null
+        private var interceptors = mutableListOf<Interceptor>()
 
 
         fun setTimeOut(timeOut: Long): Builder {
@@ -202,6 +204,11 @@ class NetworkEngine {
             return this
         }
 
+        fun addInterceptor(interceptor: Interceptor): Builder {
+            interceptors.add(interceptor)
+            return this
+        }
+
 
         fun build(): Builder {
             var networkEngine = NetworkEngine()
@@ -219,6 +226,10 @@ class NetworkEngine {
                 )
             } else {
                 networkEngine.getOkHttpClientConfig(headerMap!!, timeOut, logTag, debug)
+            }
+
+            for (value in interceptors) {
+                builder.addInterceptor(value)
             }
 
             retrofit = networkEngine.getRetrofitCoroutineConfig().let {
